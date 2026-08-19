@@ -4,53 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================================================
-       SEO / Open Graph / social meta — update to taste
-       ============================================================ -->
-  <meta name="description" content="Developer portfolio & projects showcase — terminal themed. Live GitHub projects, contribution graph, and Discord presence." />
+  <meta name="description" content="Developer portfolio & projects showcase — terminal themed." />
   <meta name="author" content="Sordonyx" />
-  <meta name="keywords" content="developer, portfolio, github, open source, terminal" />
   <meta name="theme-color" content="#050805" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="~/dev — Sordonyx" />
   <meta property="og:description" content="Developer portfolio & projects showcase — terminal themed." />
   <meta property="og:image" content="https://github.com/joeajwas.png" />
   <meta property="og:url" content="https://github.com/joeajwas" />
 
-  <!-- Twitter card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="~/dev — Sordonyx" />
-  <meta name="twitter:description" content="Developer portfolio & projects showcase — terminal themed." />
-  <meta name="twitter:image" content="https://github.com/joeajwas.png" />
-
   <title>~/dev — Sordonyx</title>
 
-  <!-- Favicon (inline SVG — terminal cursor block) -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23050805'/%3E%3Ctext x='16' y='23' font-family='monospace' font-size='20' fill='%233fff7a' text-anchor='middle'%3E%3E_%3C/text%3E%3C/svg%3E" />
 
-  <!-- Terminal fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- CRT / scanline overlays -->
   <div class="overlay scanlines" aria-hidden="true"></div>
   <div class="overlay vignette" aria-hidden="true"></div>
-
-  <!-- Matrix rain canvas (toggled via Ctrl+K -> "matrix --toggle") -->
   <canvas id="matrix" aria-hidden="true"></canvas>
 
-  <!-- ============================================================
-       NAVBAR — terminal window title bar
-       ============================================================ -->
+  <!-- NAVBAR -->
   <header class="navbar">
     <div class="navbar-inner">
       <a href="#hero" class="brand">
@@ -62,6 +41,7 @@
           <a href="#hero">whoami</a>
           <a href="#projects">ls ./projects</a>
           <a href="#experience">history --work</a>
+          <a href="#stack">neofetch --specs</a>
           <a href="#discord">discord --status</a>
           <a href="#footer">exit</a>
         </nav>
@@ -71,9 +51,7 @@
   </header>
 
   <main>
-    <!-- ============================================================
-         HERO SECTION — $ whoami
-         ============================================================ -->
+    <!-- HERO SECTION -->
     <section id="hero" class="section hero">
       <div class="terminal hero-terminal">
         <div class="terminal-bar">
@@ -94,7 +72,7 @@
           </p>
 
           <p class="line spacer"><span class="prompt">guest@github</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-sep">$</span> ./socials --links</p>
-          <div class="socials" id="socials"><!-- populated by script.js --></div>
+          <div class="socials" id="socials"></div>
         </div>
       </div>
 
@@ -124,23 +102,19 @@
       </aside>
     </section>
 
-    <!-- ============================================================
-         PROJECTS SECTION — ls ./projects
-         ============================================================ -->
+    <!-- PROJECTS SECTION -->
     <section id="projects" class="section">
       <div class="section-heading">
         <h2><span class="prompt">~$</span> <span class="ok">ls</span> ./projects <span class="muted" id="sort-label">--sort=stars</span></h2>
       </div>
 
       <div class="projects-toolbar terminal">
-        <!-- Search (grep) input -->
         <div class="toolbar-row">
           <label class="grep-label" for="search-input"><span class="prompt">grep</span> --line</label>
           <input type="search" id="search-input" class="grep-input" placeholder="filter by name or description..." autocomplete="off" />
           <span class="blink-cursor" aria-hidden="true"></span>
         </div>
 
-        <!-- Sort controls -->
         <div class="toolbar-row toolbar-sub">
           <span class="grep-label"><span class="prompt">sort</span> --by</span>
           <div class="sort-dropdown" id="sort-dropdown">
@@ -156,27 +130,21 @@
           </div>
         </div>
 
-        <!-- Language filter tabs -->
         <div id="filter-tabs" class="filter-tabs" role="tablist" aria-label="Filter projects by language">
           <button class="filter-tab active" data-lang="all" role="tab" aria-selected="true">All</button>
         </div>
       </div>
 
-      <!-- Horizontal scrollable carousel -->
       <div class="carousel-wrap">
         <button class="carousel-btn prev" id="carousel-prev" aria-label="Scroll projects left">&#10094;</button>
-        <div class="carousel" id="carousel" role="list" aria-label="Project cards">
-          <!-- Skeleton cards are injected here by JS while fetching -->
-        </div>
+        <div class="carousel" id="carousel" role="list" aria-label="Project cards"></div>
         <button class="carousel-btn next" id="carousel-next" aria-label="Scroll projects right">&#10095;</button>
       </div>
 
       <p class="projects-hint">[shift + scroll / drag to scroll] &middot; <span id="repo-count">0</span> repositories indexed</p>
     </section>
 
-    <!-- ============================================================
-         ACTIVITY SECTION — activity --graph
-         ============================================================ -->
+    <!-- ACTIVITY SECTION -->
     <section id="activity" class="section">
       <div class="section-heading">
         <h2><span class="prompt">~$</span> <span class="ok">activity</span> --graph <span class="muted">--last-year</span></h2>
@@ -194,12 +162,10 @@
       </div>
     </section>
 
-    <!-- ============================================================
-         EXPERIENCE SECTION — history --work
-         ============================================================ -->
+    <!-- EXPERIENCE SECTION -->
     <section id="experience" class="section">
       <div class="section-heading">
-        <h2><span class="prompt">~$</span> <span class="ok">history</span> --work <span class="muted">--since=2020</span></h2>
+        <h2><span class="prompt">~$</span> <span class="ok">history</span> --work <span class="muted">--since=2021</span></h2>
       </div>
       <div class="timeline terminal">
         <div class="terminal-bar">
@@ -208,47 +174,27 @@
           <span class="dot dot-green"></span>
           <span class="terminal-title">~/.bash_history</span>
         </div>
-        <div class="terminal-body timeline-body" id="timeline-body">
-          <!-- items injected by script.js -->
-        </div>
+        <div class="terminal-body timeline-body" id="timeline-body"></div>
       </div>
     </section>
 
-    <!-- ============================================================
-         BLOG SECTION — blog --feed
-         ============================================================ -->
-    <section id="blog" class="section" hidden>
+    <!-- SPECS / NEOFETCH SECTION (NO REVIEWS) -->
+    <section id="stack" class="section">
       <div class="section-heading">
-        <h2><span class="prompt">~$</span> <span class="ok">curl</span> dev.to/@me/feed <span class="muted">--latest</span></h2>
+        <h2><span class="prompt">~$</span> <span class="ok">neofetch</span> --specs <span class="muted">--env=prod</span></h2>
       </div>
-      <div class="terminal blog-terminal">
+      <div class="terminal stack-terminal">
         <div class="terminal-bar">
           <span class="dot dot-red"></span>
           <span class="dot dot-amber"></span>
           <span class="dot dot-green"></span>
-          <span class="terminal-title">rss@dev.to: latest posts</span>
+          <span class="terminal-title">system@devbox: ~/.config/neofetch</span>
         </div>
-        <div class="terminal-body" id="blog-body">
-          <p class="line out muted">reading feed...</p>
-        </div>
+        <div class="terminal-body stack-grid" id="stack-grid"></div>
       </div>
     </section>
 
-    <!-- ============================================================
-         TESTIMONIALS SECTION — echo $REVIEWS
-         ============================================================ -->
-    <section id="testimonials" class="section">
-      <div class="section-heading">
-        <h2><span class="prompt">~$</span> <span class="ok">echo</span> $REVIEWS <span class="muted">--coffee=verified</span></h2>
-      </div>
-      <div class="testimonials-grid" id="testimonials-grid">
-        <!-- items injected by script.js -->
-      </div>
-    </section>
-
-    <!-- ============================================================
-         DISCORD SECTION — discord --status
-         ============================================================ -->
+    <!-- DISCORD SECTION -->
     <section id="discord" class="section">
       <div class="section-heading">
         <h2><span class="prompt">~$</span> <span class="ok">discord</span> --status <span class="muted">--live</span></h2>
@@ -264,7 +210,6 @@
           </div>
 
           <div class="terminal-body" id="discord-body">
-            <!-- Presence is rendered here by JS -->
             <div class="presence skeleton-presence" aria-hidden="true">
               <span class="skel avatar"></span>
               <div class="skel-text">
@@ -278,7 +223,7 @@
         <div class="terminal cta-terminal">
           <div class="terminal-body cta-body">
             <p class="line"><span class="prompt">guest@discord</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-sep">$</span> ./connect --now</p>
-            <div id="guild-info" class="guild-info"><!-- server stats injected here --></div>
+            <div id="guild-info" class="guild-info"></div>
             <p class="line out">Open source builds happen in real time.</p>
             <p class="line out">Join the channel for code talk, bug hunting, and tech banter.</p>
             <a class="cta-btn" id="discord-cta" href="https://discord.gg/sKqXcZhNvr" target="_blank" rel="noopener noreferrer">
@@ -290,9 +235,7 @@
     </section>
   </main>
 
-  <!-- ============================================================
-       FOOTER — $ exit
-       ============================================================ -->
+  <!-- FOOTER -->
   <footer id="footer" class="footer">
     <div class="footer-inner">
       <p class="line"><span class="prompt">guest@github</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-sep">$</span> <span class="blink-cursor">exit</span></p>
@@ -300,9 +243,7 @@
     </div>
   </footer>
 
-  <!-- ============================================================
-       COMMAND PALETTE — open with Ctrl/Cmd+K
-       ============================================================ -->
+  <!-- COMMAND PALETTE -->
   <div id="palette" class="palette-overlay" hidden>
     <div class="palette terminal" role="dialog" aria-modal="true" aria-label="Command palette">
       <div class="palette-input-row">
@@ -314,10 +255,7 @@
     </div>
   </div>
 
-  <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-
-  <!-- Back to top -->
   <button id="to-top" class="to-top" aria-label="Back to top" title="Back to top ($ exit)">&#8593;</button>
 
   <script src="script.js"></script>
